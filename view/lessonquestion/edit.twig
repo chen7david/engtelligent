@@ -1,0 +1,61 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> Update Lesson Question</h1>
+  <p class="text-muted">This is where you update lesson questions.</p> 
+
+  <form action="{{path_for('lessonquestion.update',{lessonquestion_id: lessonquestion.id})}}" method="post">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('lessonquestion.show',{lessonquestion_id:lessonquestion.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+  	<div class="form-group">
+		<label for="rank"><b>Rank</b></label>
+		<input class="form-control border-remove {{ errors.rank ? ' is-invalid': '' }}" type="number" name="rank" value="{{ old.rank ? old.rank: lessonquestion.rank }}" id="rank">
+		{% if errors.rank %}
+		  <span class="invalid-feedback">{{ errors.rank | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="question"><b>Question</b></label>
+		<input class="form-control border-remove {{ errors.question ? ' is-invalid': '' }}" name="question" question="question" value="{{ old.question ? old.question: lessonquestion.question }}" id="question">
+		{% if errors.question %}
+		  <span class="invalid-feedback">{{ errors.question | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="answer"><b>Answer</b></label>
+		<input class="form-control border-remove {{ errors.answer ? ' is-invalid': '' }}" type="text" name="answer" value="{{ old.answer ? old.answer: lessonquestion.answer }}" id="answer">
+		{% if errors.answer %}
+		  <span class="invalid-feedback">{{ errors.answer | first | capitalize }}</span>
+		{% endif %}
+	</div>
+	
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

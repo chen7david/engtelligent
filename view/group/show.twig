@@ -1,0 +1,123 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Create Group{% endblock %}
+
+{% block body %}
+
+
+<div class="col-lg-8 jumbotron bg-light mx-auto">
+  <h1>
+  	<i class="fas fa-users"></i> {{group.name}}
+  </h1>
+  <b> Group ID: {{group.group_id}}</b>
+  <p class="text-muted">Members: {{group.users.count}} | Sessions: {{group.sessions.count}}  | Online: 5 | </p> 
+						
+			<form action="{{path_for('group.store')}}" method="post">
+
+				<ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('group.index')}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('group.edit',{group_id : group.id})}}">
+				    	<i class="fas fa-pen"></i>
+				    </a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('session.create',{group_id : group.id})}}">
+				    	<i class="fas fa-chalkboard-teacher"></i>
+				    </a>
+				  </li>
+				   <li>&nbsp</li>
+				  <li class="nav-item">
+				    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+				    	<i class="fas fa-times"></i>
+				    </a>
+				  </li>
+				</ul>
+				<hr class="mt-0">
+
+			
+		<h5><i class="fas fa-user-graduate"></i> Students</h5>
+		{% if users.count > 0 %}
+		<ul>
+			{% for user in users %} 
+				<li><a href="{{path_for('user.show',{user_id:user.id})}}"> {{user.name}}</a></li>
+			{% endfor %}
+		</ul>
+		{% else %}
+
+			<div class="alert alert-light p-5 text-center">
+			  This group <strong>currently has no </strong> students.
+			</div>
+
+		{% endif %}	
+
+		
+
+
+	
+	
+		<h5><i class="fas fa-chalkboard-teacher"></i> Sessions</h5>
+		{% if group.sessions.count > 0 %}
+		<div class="list-group">
+			{% for session in group.sessions %}
+			  <a href="{{path_for('session.show',{session_id : session.id})}}" class="list-group-item list-group-item-action">
+			  <small>
+					  	{% if session.lessons.count > 0 %}
+							{% for lesson in session.lessons %}
+							    {{ lesson.name}}
+							    {% if session.lessons.count - loop.index != 0 %}
+							    	&
+							    {% endif %}
+							{% endfor %}						    
+						{% endif %}	
+						({{session.created}})
+			  </small>
+			  </a>
+			{% endfor %}
+		</div>
+		{% else %}
+
+			<div class="alert alert-light p-5 text-center">
+			  This group <strong>currently has no </strong> session history.
+			</div>
+
+		{% endif %}	
+
+</div>
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('group.delete',{group_id : group.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

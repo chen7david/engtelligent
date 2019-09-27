@@ -1,0 +1,35 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Store{% endblock %}
+
+{% block body %}
+<div class="row">	
+
+
+	<div class="col-lg-4 mx-auto bg-light p-2">
+ 			<div class="text-center m-2 ">
+
+ 				<p><img class="mx-auto mt-3" src="{{base_url('/') ~ order.batch.product.path}}" alt="{{product.name}}" style="border-radius: 50%; border:8px solid #c6bfbe;  height:180px; width:180px"></p>
+ 				
+				<h5 class="text-dark">{{order.batch.product.name}}</h5>
+				<b class="text-dark">{{order.code}} / {{order.amount}}</b> 
+				<p><small>{{order.expiration_date}}</small></p>
+ 				
+ 				
+ 				
+				{% if order.redeemed == 1 %}
+					<b class="text-danger">Redeemed</b>
+				{% else %}
+					<p>
+					    <a class="btn btn-success" href="{{path_for("order.redeemed",{code:order.code})}}">
+					    	<b>Redeem Now</b>
+					    </a>
+					</p>
+				{% endif %}
+			
+ 			</div>
+ 			
+	</div>
+
+</div>
+
+{% endblock %}

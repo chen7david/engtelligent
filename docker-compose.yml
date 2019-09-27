@@ -1,0 +1,42 @@
+version: '3.2'
+
+services:
+  engtelligent:
+    build: './app/'
+    restart: always
+    container_name: engtelligent
+    working_dir: /var/www/html
+    # depends_on:
+    #   - mysql    
+    volumes:
+      - ./app:/var/www/html
+    ports:
+      - "4001:80"
+
+  # mysql:
+  #   image: mysql:5.7
+  #   restart: always
+  #   container_name: mysql
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=Iamdavid7D
+  #     - MYSQL_DATABASE=engtelligent
+  #     - MYSQL_USER=chen7david
+  #     - MYSQL_PASSWORD=Iamdavid7D
+  #   volumes:
+  #    - ./mysql:/var/lib/mysql
+  #   ports:
+  #     - 3306:3306
+
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   depends_on:
+  #     - mysql
+  #   container_name: phpmyadmin
+  #   links:
+  #     - mysql 
+  #   environment:
+  #     - PMA_HOST=mysql
+  #     - PMA_PORT=3306
+  #   ports: 
+  #     - 8090:80

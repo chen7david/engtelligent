@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>{% block title %}{% endblock %}</title>
+	{% include 'app/includes/header/meta.twig' %}
+
+	<!-- fonts and icons -->
+	{% include 'app/includes/header/fonts.twig' %}
+
+	<!-- styles -->
+	{% block styles_ht %}{% endblock %}
+	{% include 'app/includes/header/styles.twig' %}
+	{% block styles_hb %}{% endblock %}
+
+	<!-- scripts -->
+	{% block scripts_ht %}{% endblock %}
+	{% include 'app/includes/header/scripts.twig' %}
+	{% block scripts_hb %}{% endblock %}
+
+</head>
+<body>
+	{% include 'nav/top/main.twig' %}
+	{% include 'app/includes/header/flash.twig' %}
+
+	<div class="container mt-5">
+	{% block body %}{% endblock %}
+	</div>
+	
+	<!-- scripts.bottem -->
+	{% block scripts_ft %}{% endblock %}
+	{% include 'app/includes/footer/scripts.twig' %}
+	{% block scripts_fb %}{% endblock %}
+
+</body>
+</html>

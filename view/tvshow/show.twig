@@ -1,0 +1,102 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}tvshows{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-tv"></i> View Tv Show</h1>
+<p class="text-muted">Please use the menu to navigate between tv shows</p>
+			  <ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('tvshow.index')}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('tvshow.edit',{tvshow_id:tvshow.id})}}">
+				    	<i class="fas fa-pen"></i>
+				    </a>
+				  </li>
+
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">
+				    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+				    	<i class="fas fa-times"></i>
+				    </a>
+				  </li>
+				</ul>
+
+<div class="alert alert-light p-1 row">
+	<div class="col-lg-3 text-center">
+		<img class="mt-4 p-1" src="{{base_url('/') ~ tvshow.path}}" alt="{{tvshow.name}}" style="width: 142px; height: 208px;">
+	</div>
+	<div class="col-lg-8">
+		<h2 class="mt-2">{{tvshow.name}}</h2>
+		<hr>
+ 		<p><strong>Description:</strong> {{tvshow.description}}</p>
+	</div>
+</div>
+
+<ul class="nav mt-5">
+<li class="nav-item"> 
+<a class="btn btn-dark btn-circle" href="{{path_for('season.create',{tvshow_id:tvshow.id})}}">
+	<i class="fas fa-plus"></i>
+</a>
+<li>&nbsp</li><li>&nbsp</li>
+</li>
+<li class="nav-item"> 
+	<h4 class=""> Seasons</h4>
+</li>
+</ul>
+
+
+<div class="list-group mt-2">
+	{% if tvshow.seasons.count != 0 %}
+	{% for season in tvshow.seasons %}
+	  <a href="{{path_for('season.show',{season_id : season.id})}}" class="list-group-item list-group-item-action">
+	  	<p class=" p-0 m-0"><i class="fas fa-bullseye"></i>
+		    <b>Season {{season.rank}}</b> 
+		</p>	
+	  </a>
+	{% endfor %}
+	{% else %}
+	    <div class="alert alert-light text-center p-5">
+	    	There are no <strong>seasons</strong> yet.
+	    </div>
+	{% endif %}
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('tvshow.delete',{tvshow_id : tvshow.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}View Lesson Text Question{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> View Lesson Question</h1>
+  <p class="text-muted">This is where you view lesson questions.</p> 
+
+
+<!-- Menu items  -->
+<ul class="nav p-2">
+ <li class="nav-item">
+	<a class="btn btn-dark btn-circle" href="{{path_for('lesson.show',{lesson_id:lessonquestion.lesson_id})}}">
+		<i class="fas fa-chevron-left"></i>
+	</a>
+  </li>
+  <li>&nbsp</li><li>&nbsp</li>
+  <li class="nav-item">  
+    <a class="btn btn-dark btn-circle" href="{{path_for('lessonquestion.edit',{lessonquestion_id:lessonquestion.id})}}">
+    	<i class="fas fa-pen"></i>
+    </a>
+  </li>
+
+  <li>&nbsp</li><li>&nbsp</li>
+  <li class="nav-item">
+    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+    	<i class="fas fa-times"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div class="alert alert-light p-5">
+	<p class="text-dark">{{lessonquestion.question}}</p>
+	<p>{{lessonquestion.answer}}</p>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <a class="btn btn-danger btn-sm" href="{{path_for('lessonquestion.delete',{lessonquestion_id : lessonquestion.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

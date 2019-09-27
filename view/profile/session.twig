@@ -1,0 +1,152 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light p-3 col-lg-8 mx-auto">
+
+<ul class="nav p-2">
+ <li class="nav-item">
+	<a class="btn btn-dark btn-circle" href="{{path_for('profile.index')}}">
+		<i class="fas fa-chevron-left"></i>
+	</a>
+  </li>
+</ul>
+<hr>
+ <div class="">
+{% if session.lessons.count > 0 %}
+
+	{% for lesson in session.lessons %}
+		<h5>
+		    <img class="" src="{{base_url('/') ~ lesson.path}}" alt="Profile Picture" style="width: 60px; height: 60px; border-radius: 50%; border:3px solid #f2f7ff;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+			{{ lesson.name}}
+		</h5>
+		<!-- Objectives -->
+		<div class="alert alert-light">
+			<small><strong>Lesson Objectives:</strong></small>
+			<ol>
+				{% for objective in lesson.lessonobjectives %}
+				    <small><li>{{objective.objective}}</li></small>
+				{% endfor %}
+			</ol>
+		</div>
+	<!-- word List -->
+		<div class="alert alert-light">
+			<small><strong>Active Vocabulary:</strong></small>
+			<table class="table table-sm">
+				{% for word in lesson.lessonwords %}
+				    <tr>
+				    	<td><small>{{loop.index}}. {{word.word}}</small></td>
+				    	<td><small>/ {{word.phonetic}} /</small></td>
+				    	<td><small>{{word.hanzi}}</small></td>
+				    </tr>
+				{% endfor %}
+			</table>
+			<p>Text Questions</p>
+			<hr>
+			<ol>
+			{% for question in lesson.lessonquestions %}
+				<li data-toggle="collapse" data-target="#question{{question.id}}" style="cursor: pointer;">
+					{{question.question}}
+					<div id="question{{question.id}}" class="collapse">
+						<div class="text-info">{{question.answer}}</div>
+					</div>
+				</li>    
+			{% endfor %}
+			</ol>
+		</div>
+
+	<!-- Lesson questions -->
+		
+		<div class="list-group my-3">
+			<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+			{% if lesson.lessonvideos.count != 0 %}
+			{% for lessonvideo in lesson.lessonvideos %}
+			  <a href="{{path_for('profile.lessonvideo',{lessonvideo_id : lessonvideo.id, session_id:session.id})}}" class="list-group-item list-group-item-action">
+			  	
+			    <p class="truncate p-0 m-0"><small><b><i class="fas fa-video"></i> E{{lessonvideo.rank}}</b> {{lessonvideo.name}}</small> </p>
+			  	<span class="badge btn-danger badge-pill float-right">{{lessonvideo.amount}}</span>	
+			  </a>
+			{% endfor %}
+			{% else %}
+			    <div class="alert alert-light text-center p-5">
+			    	There are no <strong>lesson videos</strong> yet.
+			    </div>
+			{% endif %}
+		</div>
+		</div>
+
+	<!-- lesson text -->
+		
+		<div class="alert alert-light p-0">
+
+			<ol>
+				{% for text in lesson.lessontexts %}
+
+					<div class="alert alert-light p-2">
+						<h1 class="text-dark mt-2">{{text.title}}</h1>
+					<p class="text-dark">{{text.subtitle}}</p>
+						<p><small>Written By {{text.author}}</small></p>
+						<hr>
+						
+						<p>{{text.body}}</p>
+						<p ><h4 class="text-center">~The End~</h4></p>
+
+						<p>Text Questions</p>
+						<ol>
+						{% for question in text.lessontextquestions %}
+							<li data-toggle="collapse" data-target="#textquestion{{question.id}}" style="cursor: pointer;">
+								{{question.question}}
+								<div id="textquestion{{question.id}}" class="collapse">
+									<div class="text-info">{{question.answer}}</div>
+								</div>
+							</li>
+						{% endfor %}
+						</ol>
+					</div>
+				   
+				{% endfor %}
+			</ol>
+		</div>
+	<!-- lesson questions -->
+
+
+
+	<!-- lesson audio -->
+		<div class="list-group mt-2">
+			<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+			{% if lesson.lessonaudios.count != 0 %}
+			{% for lessonaudio in lesson.lessonaudios %}
+			  <a href="{{path_for('profile.lessonaudio',{lessonaudio_id : lessonaudio.id, session_id:session.id})}}" class="list-group-item list-group-item-action">
+			  	<p class="truncate p-0 m-0"><i class="fas fa-headphones-alt"></i>
+				    <b>E{{lessonaudio.rank}}</b>	{{lessonaudio.name}} 
+				</p>
+			  	<span class="badge btn-danger badge-pill float-right">{{lessonaudio.amount}}</span>	
+			  </a>
+			{% endfor %}
+			{% else %}
+			    <div class="alert alert-light text-center p-5">
+			    	There are no <strong>lesson audio files</strong> yet.
+			    </div>
+			{% endif %}
+			</div>
+		</div>
+
+</div>	
+	{% endfor %}				    
+{% endif %}	
+	
+
+
+
+			  
+						  	
+
+
+
+</div>
+
+
+
+{% endblock %}

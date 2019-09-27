@@ -1,0 +1,67 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}tvshows{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-tv"></i> Update Tv Show</h1>
+  <p class="text-muted">This is where you update your tv shows.</p> 
+  
+  <form action="{{path_for('tvshow.update',{tvshow_id:tvshow.id})}}" method="post" enctype="multipart/form-data">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('tvshow.show',{tvshow_id:tvshow.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+  	<div class="custom-control custom-checkbox my-2">
+	  <input type="hidden" name="is_published" value="0">
+	  <input type="checkbox" class="custom-control-input" id="customCheck" value="1" name="is_published" 
+		{% if old.is_published == 1 or tvshow.is_published == 1 %}checked{% endif %}>
+	  <label class="custom-control-label text-muted" for="customCheck">Published (visable to buyers)</label>
+    </div>
+
+	<div class="form-group">
+		<label for="name"><b>Name</b></label>
+		<input class="form-control border-remove {{ errors.name ? ' is-invalid': '' }}" type="text" name="name" value="{{ old.name ? old.name: tvshow.name }}" id="name">
+		{% if errors.name %}
+		  <span class="invalid-feedback">{{ errors.name | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label  for="description"><b>Description</b></label>
+		<textarea class="form-control border-remove {{ errors.description ? ' is-invalid': '' }}" type="textarea" name="description" id="description" rows="2" cols="50">{{ old.description ? old.description: tvshow.description }}</textarea>
+
+		{% if errors.description %}
+		  <span class="invalid-feedback">{{ errors.description | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="custom-file">
+		<label class="custom-file-label" for="customFile">Choose an image</label>
+	    <input type="file" class="custom-file-input" name="image" id="customFile">
+	    
+	</div>	
+
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

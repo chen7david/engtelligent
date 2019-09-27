@@ -1,0 +1,75 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}lessons{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> View lesson Audio</h1>
+<p class="text-muted">Plese use the menu to navigate between lessons</p>
+			  <ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('profile.session',{session_id : session.id})}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				</ul>
+<div class="alert alert-light p-1 row">
+	
+	<div class="col-lg-12 text-center">
+		<p class="mt-3">
+			<b>L{{lessonaudio.lesson_id}}E{{lessonaudio.rank}}</b>	{{lessonaudio.name}}
+		</p>
+		<p>
+			<img class="rounded " src="{{base_url('/') ~ lessonaudio.image_path}}" alt="{{lessonaudio.name}}" style="max-height:350px">
+		</p>
+		
+		<p>
+		<audio class="m-3" id="audio" controls  width="100%px;" controls controlsList="nodownload">
+		  <source src="{{base_url('/') ~ lessonaudio.path }}" type="audio/mpeg">
+			Your browser does not support the audio element.
+		</audio>
+		</p>
+	    
+		<hr>
+ 		<p class="text-left"><strong>Description:</strong> {{lessonaudio.description}}</p>
+	</div>
+</div>
+
+
+	<div class="list-group mt-2">
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+		{% for lessonaudio in lessonaudio.lesson.lessonaudios %}
+		  <a href="{{path_for('lessonaudio.show',{lessonaudio_id : lessonaudio.id})}}" class="list-group-item list-group-item-action">
+		  	<i class="fas fa-video"></i> 
+		    L{{lessonaudio.lesson.id}}E{{lessonaudio.rank}}	{{lessonaudio.name}}
+		  	<span class="badge btn-danger badge-pill float-right">{{lessonaudio.amount}}</span>	
+		  </a>
+		{% endfor %}
+		</div>
+	</div>
+
+</div>
+{% endblock %}
+
+
+{% block scripts_ft %}
+<script type="text/javascript">
+
+	$(window).keypress(function(e) {
+	  var video = document.getElementById("audio");
+	  if (e.which == 32) {
+	    if (video.paused)
+	      video.play();
+	    else
+	      video.pause();
+	  }
+	});
+
+</script>
+{% endblock %}
+

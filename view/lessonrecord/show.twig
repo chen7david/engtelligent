@@ -1,0 +1,113 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}lessons{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> View lesson Video</h1>
+<p class="text-muted">Plese use the menu to navigate between lessons</p>
+			  <ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('lesson.show',{lesson_id:lessonvideo.lesson_id})}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('lessonvideo.edit',{lessonvideo_id:lessonvideo.id})}}">
+				    	<i class="fas fa-pen"></i>
+				    </a>
+				  </li>
+
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">
+				    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+				    	<i class="fas fa-times"></i>
+				    </a>
+				  </li>
+				</ul>
+
+<div class="alert alert-light p-1 row">
+	
+	<div class="col-lg-8">
+		<h2 class="mt-2">{{lesson.name}}</h2>
+
+		<video id="vid" width="100%px;" controls controlsList="nodownload">
+	        <source src="{{base_url('/') ~ lessonvideo.path }}" type="video/mp4">
+	        Your browser does not support the video tag.
+	    </video>
+	    <b>L{{lessonvideo.lesson_id}}E{{lessonvideo.rank}}</b>	{{lessonvideo.name}}
+		<hr>
+ 		<p><strong>Description:</strong> {{lessonvideo.description}}</p>
+	</div>
+
+	<div class="col-lg-3 text-center">
+		
+	</div>
+</div>
+
+
+	<div class="list-group mt-2">
+		{% for lessonvideo in lesson.lessonvideos %}
+		  <a href="{{path_for('lessonvideo.show',{lessonvideo_id : lessonvideo.id})}}" class="list-group-item list-group-item-action">
+		  	<i class="fas fa-video"></i> 
+		    L{{lessonvideo.lesson.id}}E{{lessonvideo.rank}}	{{lessonvideo.name}}
+		  	<span class="badge btn-danger badge-pill float-right">{{lessonvideo.amount}}</span>	
+		  </a>
+		{% endfor %}
+	</div>
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('lesson.delete',{lesson_id : lesson.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
+
+{% block scripts_ft %}
+<script type="text/javascript">
+
+	$(window).keypress(function(e) {
+	  var video = document.getElementById("vid");
+	  if (e.which == 32) {
+	    if (video.paused)
+	      video.play();
+	    else
+	      video.pause();
+	  }
+	});
+
+</script>
+{% endblock %}
+

@@ -1,0 +1,72 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-wordpress"></i> New Lesson Objective</h1>
+  <p class="text-muted">This is where you create new lesson videos.</p> 
+
+  <form action="{{path_for('lessonword.update',{lessonword_id:lessonword.id})}}" method="post">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('lessonword.show',{lessonword_id:lessonword.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	<div class="form-group">
+		<label for="rank"><b>Rank</b></label>
+		<input class="form-control border-remove {{ errors.rank ? ' is-invalid': '' }}" type="number" name="rank" value="{{ old.rank ? old.rank: lessonword.rank }}" id="rank">
+		{% if errors.rank %}
+		  <span class="invalid-feedback">{{ errors.rank | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="word"><b>Word</b></label>
+		<input class="form-control border-remove {{ errors.word ? ' is-invalid': '' }}" type="text" name="word" value="{{ old.word ? old.word: lessonword.word }}" id="word">
+		{% if errors.word %}
+		  <span class="invalid-feedback">{{ errors.word | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="phonetic"><b>Phonetic</b></label>
+		<input class="form-control border-remove {{ errors.phonetic ? ' is-invalid': '' }}" type="text" name="phonetic" value="{{ old.phonetic ? old.phonetic: lessonword.phonetic }}" id="phonetic">
+		{% if errors.phonetic %}
+		  <span class="invalid-feedback">{{ errors.phonetic | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="hanzi"><b>Hanzi</b></label>
+		<input class="form-control border-remove {{ errors.hanzi ? ' is-invalid': '' }}" type="text" name="hanzi" value="{{ old.hanzi ? old.hanzi: lessonword.hanzi }}" id="hanzi">
+		{% if errors.hanzi %}
+		  <span class="invalid-feedback">{{ errors.hanzi | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+
+	<input type="hidden" name="lesson_id" value="{{lesson.id}}">
+
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

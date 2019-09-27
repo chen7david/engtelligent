@@ -1,0 +1,99 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}tvshows{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-tv"></i> View Season</h1>
+<p class="text-muted">Please use the menu to navigate between the seasons</p>
+			  <ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('tvshow.show',{tvshow_id:season.tvshow.id})}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('tvshow.edit',{tvshow_id:season.tvshow.id})}}">
+				    	<i class="fas fa-pen"></i>
+				    </a>
+				  </li>
+
+				  <li>&nbsp</li><li>&nbsp</li>
+				  <li class="nav-item">
+				    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+				    	<i class="fas fa-times"></i>
+				    </a>
+				  </li>
+				</ul>
+<div class="alert alert-light p-1 row">
+	<div class="col-lg-3 text-center">
+		<img class="mt-4" src="{{base_url('/') ~ season.tvshow.path}}" alt="{{season.tvshow.name}}" style="width: 120px; height: 120px; border-radius: 20%; border:6px solid #e6eeef;">
+	</div>
+	<div class="col-lg-8">
+		<h2 class="mt-2">{{season.tvshow.name}}</h2>
+		<hr>
+ 		<p><strong>Description:</strong> {{season.description}}</p>
+	</div>
+</div>
+<ul class="nav mt-5">
+<li class="nav-item"> 
+<a class="btn btn-dark btn-circle" href="{{path_for('episode.create',{season_id:season.id})}}">
+	<i class="fas fa-plus"></i>
+</a>
+<li>&nbsp</li><li>&nbsp</li>
+</li>
+<li class="nav-item"> 
+	<h4 class=""> Episodes</h4>
+</li>
+</ul>
+
+
+<div class="list-group mt-2">
+	{% if season.episodes.count != 0 %}
+	{% for episode in season.episodes %}
+	  <a href="{{path_for('episode.show',{episode_id : episode.id})}}" class="list-group-item list-group-item-action">
+	  	<p class=" p-0 m-0"><i class="fas fa-bullseye"></i>
+		    <b>E{{episode.rank}}</b> {{episode.name}}
+		</p>	
+	  </a>
+	{% endfor %}
+	{% else %}
+	    <div class="alert alert-light text-center p-5">
+	    	There are no <strong>episodes</strong> yet.
+	    </div>
+	{% endif %}
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('season.delete',{season_id : season.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

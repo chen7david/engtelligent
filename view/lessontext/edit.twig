@@ -1,0 +1,88 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> Update Lesson Text</h1>
+  <p class="text-muted">This is where you update lesson reading texts.</p> 
+
+  <form action="{{path_for('lessontext.update',{lessontext_id:lessontext.id})}}" method="post" enctype="multipart/form-data">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('lessontext.show',{lessontext_id:lessontext.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	<div class="form-group">
+		<label for="title"><b>Title</b></label>
+		<input class="form-control border-remove {{ errors.title ? ' is-invalid': '' }}" type="text" name="title" value="{{ old.title ? old.title: lessontext.title }}" id="title">
+		{% if errors.title %}
+		  <span class="invalid-feedback">{{ errors.title | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="subtitle"><b>Subtitle</b></label>
+		<input class="form-control border-remove {{ errors.subtitle ? ' is-invalid': '' }}" name="subtitle" subtitle="subtitle" value="{{ old.subtitle ? old.subtitle: lessontext.subtitle }}" id="subtitle">
+		{% if errors.subtitle %}
+		  <span class="invalid-feedback">{{ errors.subtitle | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="author"><b>Author</b></label>
+		<input class="form-control border-remove {{ errors.author ? ' is-invalid': '' }}" type="text" name="author" value="{{ old.author ? old.author: lessontext.author }}" id="author">
+		{% if errors.author %}
+		  <span class="invalid-feedback">{{ errors.author | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="rank"><b>Rank</b></label>
+		<input class="form-control border-remove {{ errors.rank ? ' is-invalid': '' }}" type="number" name="rank" value="{{ old.rank ? old.rank: lessontext.rank }}" id="rank">
+		{% if errors.rank %}
+		  <span class="invalid-feedback">{{ errors.rank | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="custom-file">
+	    <input type="file" class="custom-file-input" name="image" id="customFile">
+	    <label class="custom-file-label" for="customFile">Choose an image file</label>
+	</div>
+
+	<div class="custom-file">
+	    <input type="file" class="custom-file-input" name="audio" id="customFile">
+	    <label class="custom-file-label" for="customFile">Choose an mp3 file</label>
+	</div>
+	
+	<div class="form-group">
+		<label  for="body"><b>Body</b></label>
+		<textarea class="form-control border-remove {{ errors.body ? ' is-invalid': '' }}" type="textarea" name="body" id="body" rows="8" cols="50">{{ old.body ? old.body: lessontext.body }}</textarea>
+
+		{% if errors.body %}
+		  <span class="invalid-feedback">{{ errors.body | first | capitalize }}</span>
+		{% endif %}
+	</div>
+	
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

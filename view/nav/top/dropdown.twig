@@ -1,0 +1,15 @@
+
+
+{% if auth.user.hasrole('super_admin') %}
+<a class="dropdown-item" href="{{path_for('authorization.report')}}">Autherized</a>
+<a class="dropdown-item" href="{{path_for('user.index')}}">Users</a>
+<a class="dropdown-item" href="{{path_for('group.index')}}">Groups</a>
+<a class="dropdown-item" href="{{path_for('lesson.index')}}">Lessons</a>
+<a class="dropdown-item" href="{{path_for('product.index')}}">Product</a>
+<a class="dropdown-item" href="{{path_for('tvshow.index')}}">TvShows</a>
+
+{% endif %}
+<a class="dropdown-item" href="{{path_for('password.update')}}">Password Update</a>
+
+
+

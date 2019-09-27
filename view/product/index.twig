@@ -1,0 +1,27 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Products{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-warehouse"></i> Manage Products</h1>
+  <p class="text-muted">Product: {{ products.count ? products.count : '0' }} | Active: 3 | Online: 5 | </p> 
+
+  <p><a class="btn btn-dark btn-circle" href="{{path_for('product.create')}}"><i class="fas fa-plus"></i></a></p>
+
+
+	<div class="list-group">
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+		{% for product in products %}
+		  <a href="{{path_for('product.show',{product_id : product.id})}}" class="list-group-item list-group-item-action">
+		  	<i class="fas fa-address-card"></i> <span class="text-muted">{{product.name}}</span>	
+		  </a>
+		{% endfor %}
+		</div>
+	</div>
+
+</div>
+
+
+{% endblock %}

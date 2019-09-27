@@ -1,0 +1,45 @@
+{% for middle_name in user.middlenames %}
+	<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+		<label class="text-muted" for="middle_name"><i class="fas fa-user"></i> Middle Name</label>
+			<a class="nostyle text-dark float-right" href="" data-toggle="modal" data-target="#{{middle_name.id}}myModal">
+			     <i class="fas fa-times"></i>
+			</a>	
+		<input type="hidden" name="middle_name[{{middle_name.id}}][id]" value="{{middle_name.id}}">
+		<input class="gapex {{ errors.middle_name ? ' is-invalid': '' }}" type="text" name="middle_name[{{middle_name.id}}][middle_name]" id="middle_name" value="{{ old.middle_name ? old.middle_name : middle_name.middle_name}}">	
+		{% if errors.middle_name %}
+		  <span class="invalid-feedback">{{ errors.middle_name | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+				
+	<!-- The Modal -->
+	<div class="modal" id="{{middle_name.id}}myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Delete Confirmation</h5>
+	        
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        You will not be able to recover this item if you choose to delete it. 
+	        
+	      </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	      	<a class="btn btn-danger btn-sm" href="{{path_for('user.detach',{
+				user_id:user.id,
+				obj:'middle_name',
+				obj_id:middle_name.id,
+			})}}">Delete</a>
+	        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+{% endfor %}

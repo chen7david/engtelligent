@@ -1,0 +1,92 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Create Group{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light">
+  <h1><i class="fas fa-users"></i> {{group.name}}</h1>
+  <b> Group ID: {{group.group_id}}</b>
+  <p class="text-muted">Members: {{group.users.count}} | Active: 3 | Online: 5 | </p> 
+						
+			<form action="{{path_for('group.update',{group_id:group.id})}}" method="post">
+
+				<ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('group.show',{group_id:group.id})}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('group.index')}}">
+				    	<i class="far fa-circle"></i>
+				    </a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">
+				  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+			    		<i class="fas fa-check"></i>
+			   		</button>
+				  </li>
+				</ul>
+				<hr class="mt-0">
+				<div class="form-group">
+					<label for="name"><b>Name</b></label>
+					<input class="form-control border-remove {{ errors.name ? ' is-invalid': '' }}" type="text" name="name" value="{{ old.name ? old.name: group.name }}" id="name">
+					{% if errors.name %}
+					  <span class="invalid-feedback">{{ errors.name | first | capitalize }}</span>
+					{% endif %}
+				</div>
+
+				<div class="form-group">
+					<label  for="description"><b>Description</b></label>
+					<textarea class="form-control border-remove {{ errors.description ? ' is-invalid': '' }}" type="textarea" name="description" id="description" rows="2" cols="50">{{ old.description ? old.description: group.description }}</textarea>
+
+					{% if errors.description %}
+					  <span class="invalid-feedback">{{ errors.description | first | capitalize }}</span>
+					{% endif %}
+				</div>
+			
+				<div class="form-group">
+					<label for="">Students</label>
+					<select class="form-control select2" name="users[]" multiple="true">
+						{% for user in users %}
+							<option value="{{ user.id }}">{{ user.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+			</form>
+
+	
+
+
+</div>
+
+</div>
+
+
+{% endblock %}
+
+{% block styles_hb %}
+	<link href="{{base_url()}}/includes/styles/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block scripts_ft %}
+
+<script src="{{base_url()}}/includes/scripts/select2.full.min.js"></script>
+
+<script type="text/javascript">
+
+	$('.select2').select2().val({{group.users.pluck('id')}}).trigger('change');
+
+</script>
+
+
+{% endblock %}

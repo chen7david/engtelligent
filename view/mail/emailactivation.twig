@@ -1,0 +1,22 @@
+{% extends 'mail/includes/template.twig' %}
+{% block title %}Email Activation{% endblock %}
+
+{% block body %}
+<h4>Email Activation Procedure (EAP).</h4>
+<p>Please follow the instructions below to activate this email on your account.</p> 
+<p><b>Instructions:</b></p>
+<ol>
+	<li>Click the "activate email" link to activate this email.</li>
+		<a class="btn btn-success" href="{{domain}}{{verlink}}">Activate Email</a>
+	<li>Then login to your account.</li>
+</ol>	
+
+<p>Best regards,</p>
+<p>David M. Chen</p>
+
+<p>At Engtelligent TLD</p>
+<p>www.engtelligent.com</p>
+{% endblock %}
+
+
+

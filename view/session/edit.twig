@@ -1,0 +1,91 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Update Course{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+	
+	<div class="col-lg-9 jumbotron bg-light mx-auto">
+
+			<h3><i class="fas fa-chalkboard-teacher"></i> Edit Session</h3>
+
+			
+			<form action="{{path_for('session.update', {session_id: session.id})}}" method="post">
+
+				<ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('session.show',{session_id: session.id})}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('group.index')}}">
+				    	<i class="far fa-circle"></i>
+				    </a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <a class="btn btn-dark btn-circle" href="{{path_for('session.edit',{session_id : session.id})}}">
+				    	<i class="fas fa-pen"></i>
+				    </a>
+				  </li>
+				  <li>&nbsp</li>
+				  <li class="nav-item">  
+				    <button class="btn btn-dark btn-circle" type="submit" value="Create">
+			    		<i class="fas fa-check"></i>
+			   		</button>
+				  </li>
+				</ul>
+				<hr>
+
+				<div class="form-group">
+					<label for="">Lessons</label>
+					<select class="form-control select2" name="lessons[]" multiple="true">
+						{% for lesson in lessons %}
+							<option {% if lesson.id == session.lesson_id %} selected {% endif %} value="{{ lesson.id }}">{{ lesson.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="">Duration (in munites)</label>
+					<select class="form-control" name="duration">
+							<option {% if session.duration == 120 %} selected {% endif %} value="120">120</option>
+							<option {% if session.duration == 45 %} selected {% endif %} value="45">45</option>
+							<option {% if session.duration == 60 %} selected {% endif %} value="60">60</option>
+							<option {% if session.duration == 90 %} selected {% endif %} value="90">90</option>
+							<option {% if session.duration == 120 %} selected {% endif %} value="120">120</option>
+							<option {% if session.duration == 150 %} selected {% endif %} value="150">150</option>
+							<option {% if session.duration == 180 %} selected {% endif %} value="180">180</option>
+					</select>
+				</div>
+
+			</form>
+
+	</div>
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block styles_hb %}
+	<link href="{{base_url()}}/includes/styles/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block scripts_ft %}
+
+<script src="{{base_url()}}/includes/scripts/select2.full.min.js"></script>
+
+<script type="text/javascript">
+
+	$('.select2').select2().val({{session.lessons.pluck('id')}}).trigger('change');
+
+</script>
+
+{% endblock %}

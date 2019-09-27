@@ -1,0 +1,8 @@
+{% if auth.user %}
+<li class="nav-item"> <a class="nav-link" href="{{path_for('store.index')}}">Store</a> </li>
+<li class="nav-item"> <a class="nav-link" href="{{path_for('tvshow.collection')}}">TvShows</a> </li>
+{% else %}
+
+ 
+
+{% endif %}

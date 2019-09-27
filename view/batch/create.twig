@@ -1,0 +1,76 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Products{% endblock %}
+
+{% block styles_hb %}
+	<link rel="stylesheet" href="{{base_url()}}/includes/styles/zebra_datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-warehouse"></i> New Batch</h1>
+  <p class="text-muted">This is where you create new batches.</p> 
+
+  <form action="{{path_for('batch.store')}}" method="post">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('product.show',{product_id:product.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	<div class="form-group">
+		<label for="amount">Amount</label>
+		<input class="form-control {{ errors.amount ? ' is-invalid': '' }}" type="text" name="amount" value="{{ old.amount ? old.amount: course.amount }}" id="amount">
+		{% if errors.amount %}
+		  <span class="invalid-feedback">{{ errors.amount | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="amount">Price</label>
+		<input class="form-control {{ errors.price ? ' is-invalid': '' }}" type="text" name="price" value="{{ old.price ? old.price: course.price }}" id="price">
+		{% if errors.price %}
+		  <span class="invalid-feedback">{{ errors.price | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+			<label for="expiration_date">Expiry</label>
+			<input class="form-control bg-white {{ errors.expiration_date ? ' is-invalid': '' }}" type="text" name="expiration_date" id="datepicker" value="{{ old.expiration_date }}">
+			{% if errors.expiration_date %}
+			  <span class="text-danger">
+			  	<small>{{errors.expiration_date | first | capitalize | replace({'_': ' '})}}</small>
+			  </span>
+			{% endif %}
+		</div>
+		<input type="hidden" name="product_id" value="{{product.id}}">
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts_fb %}
+
+<script src="{{base_url()}}/includes/scripts/zebra_datepicker.min.js"></script>
+
+<script type="text/javascript">
+	$('#datepicker').Zebra_DatePicker();
+</script>
+{% endblock %}

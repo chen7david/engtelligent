@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+
+	<a class="navbar-brand" href="{{path_for('app.home')}}">Engtelligent<i class="fas fa-seedling"></i></i></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#toggle" aria-controls="toggle" 
+	  		aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div class="collapse navbar-collapse" id="toggle">
+  	
+	<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+   		{% include 'nav/top/left.twig' %}
+  </ul>
+
+	<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+    	{% include 'nav/top/right.twig' %}
+
+      {% if auth.user %}
+
+      <li class="nav-item dropdown">
+        
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    {% if auth.user.hasrole('super_admin') %}
+                        {{auth.user.name}}
+                    {% else %}
+                        Settings  
+                    {% endif %}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          {% include 'nav/top/dropdown.twig' %}
+        </div>
+      </li>
+      {% endif %}
+	</ul>
+  </div>
+
+
+	
+
+  </div>
+</nav>

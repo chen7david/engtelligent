@@ -1,0 +1,89 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+
+<div class="alert alert-light p-3 col-lg-11 mx-auto row">
+
+
+	<div class="col-12 col-sm-12 col-md-5 col-lg-3 col-xl-3 text-center p-4 mx-auto">
+		<p class="p-0 m-0">
+			<img class="" src="{{base_url('/') ~ auth.user.avatar}}" alt="Profile Picture" style="width: 120px; height: 120px; border-radius: 50%; border:6px solid #e6eeef;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+		</p>
+		<h3 class="text-dark" >{{auth.user.name}}</h3>
+		<p class="text-info"><small><b>{{auth.user.user_id}}</b></small></p>
+		<hr>
+
+			<span class="badge btn-dark badge-pill">
+				<h5 class="m-0"><i class="fas fa-strikethrough"></i> <b>{{auth.user.points ? auth.user.points : 0}}</b></h5>
+			</span> 
+
+	</div>
+	<div class="col-12 col-sm-12 col-md-7 col-lg-9 col-xl-9 mx-auto">
+		{% if auth.user.groups.count > 0 %}
+		
+		{% for group in auth.user.groups %}
+		    <h5 class="text-dark"><i class="fas fa-users"></i> {{group.group_id}}</h5>
+		    <div class="list-group list-group-flush my-3 scrollable" style="height: 500px;">
+			{% if group.sessions.count > 0 %}
+
+					<div class="list-group">
+						{% for session in group.sessions %}
+						  <a href="{{path_for('profile.session',{session_id : session.id})}}" class="list-group-item list-group-item-action">
+						  <small>
+						  			
+								  	{% if session.lessons.count > 0 %}
+
+										{% for lesson in session.lessons %}
+
+											<img class="m-0 p-0 " src="{{base_url('/') ~ lesson.path}}" alt="{{product.name}}" style="border-radius: 50%; height:40px; width:40px; border:2px solid #e6eeef;">
+										    
+										    {{ lesson.name}}
+										    {% if session.lessons.count - loop.index != 0 %}
+										    	&
+										    {% endif %}
+										{% endfor %}						    
+									{% endif %}	
+									({{session.created}})
+
+						  </small>
+						  </a>
+						{% endfor %}
+					</div>
+					</div>
+					{% else %}
+
+						<div class="alert alert-light p-5 text-center">
+						  This group <strong>currently has no </strong> session history.
+						</div>
+
+					{% endif %}
+					<br>
+	{% endfor %}
+	{% else %}
+		<div class="alert alert-light p-5 text-center">
+		  You currently are <strong>not assinged </strong> to a group.
+		</div>
+	{% endif %}
+	</div>
+
+
+
+
+	
+	<br>
+	
+ 
+ <hr>
+<br>
+
+
+
+
+
+</div>
+
+
+
+{% endblock %}

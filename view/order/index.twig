@@ -1,0 +1,58 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light">
+  <h1><i class="fas fa-warehouse"></i> Orders</h1>
+  <p class="text-muted">
+  New: {{ auth.user.orders.count ? auth.user.orders.count : '0' }} | 
+  Redeemed: {{ auth.user.redeemedorders.count ?  auth.user.redeemedorders.count : '0' }} | 
+  Total: {{ auth.user.allorders.count ?  auth.user.allorders.count : '0' }} | 
+  </p> 
+
+<h4 class="pt-4"><i class="fas fa-shipping-fast"></i> New Orders</h4>
+	<div class="list-group">
+		{% if auth.user.orders.count > 0 %}
+			{% for order in auth.user.orders %}
+				  <a href="{{path_for('order.show',{order_id : order.id})}}" class="list-group-item list-group-item-action">
+				  	<i class="fas fa-address-card"></i> 
+				  	<i class="fas fa-check-circle text-success"></i> 
+				  	<span class="text-muted">
+					  	{{order.batch.product.name}} 
+					  	
+					  	<small class="float-right"><b>[{{order.code}}]</b></small>
+
+					</span>	
+				  </a>
+			{% endfor %}
+		{% else %}
+		    <div class="alert alert-light p-5 text-center">
+		    		You currenlty <strong>do not</strong> have any orders.
+		    </div>
+
+		{% endif %}
+	</div>
+<h4 class="pt-4 text-muted"> <i class="fas fa-trash"></i>Redeemd Orders</h4>
+	<div class="list-group">
+		{% if auth.user.redeemedOrders.count > 0 %}
+			{% for order in auth.user.redeemedOrders %}
+				  <a href="{{path_for('order.show',{order_id : order.id})}}" class="list-group-item list-group-item-action">
+				  	<i class="fas fa-address-card"></i> 
+				  	<span class="text-muted">
+					  	 <small>{{order.batch.product.name}} redeemed on {{order.updated}}</small>
+					</span>	
+				  </a>
+			{% endfor %}
+		{% else %}
+		    <div class="alert alert-light p-5 text-center">
+		    		You currenlty <strong>do not</strong> have any redeemed orders.
+		    </div>
+		{% endif %}
+	</div>
+
+</div>
+
+
+{% endblock %}

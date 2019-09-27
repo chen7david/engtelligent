@@ -1,0 +1,49 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Update New User{% endblock %}
+
+{% block styles_hb %}
+	<link rel="stylesheet" href="{{base_url()}}/includes/styles/zebra_datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="col-lg-8 mx-auto">
+<div class="card">
+	<div class="card-header">
+		<ul class="nav">
+		 	{% include 'user/edit/topmenu.twig' %}
+		</ul>
+
+	</div>
+	<div class="card-body">
+	<h4><i class="fas fa-address-card"></i> Edit User</h4>
+	<hr>
+
+	<form action="{{path_for('user.update',{user_id: user.id})}}" method="post">
+		
+	<div class="row">
+	
+		{% include 'user/form/user.twig' %}
+		{% include 'user/form/phonenumber.twig' %}
+		{% include 'user/form/email.twig' %}
+		{% include 'user/form/conobj.twig' %}
+
+
+		
+	</div>
+		<button class="btn btn-dark" type="submit" value="save">Update <i class="fas fa-save"></i></button>	
+	</form>
+	</div>		
+</div>
+</div>
+
+
+{% endblock %}
+
+{% block scripts_fb %}
+
+<script src="{{base_url()}}/includes/scripts/zebra_datepicker.min.js"></script>
+
+<script type="text/javascript">
+	$('#datepicker').Zebra_DatePicker();
+</script>
+{% endblock %}

@@ -1,0 +1,88 @@
+<div class="form-group col-lg-3 py-3 pt-3">
+	<label class="text-muted" for="first_name"><i class="fas fa-user"></i> User ID</label>	
+	<input class="gapex {{ errors.user_id ? ' is-invalid': '' }}" type="text" name="user_id" id="user_id" value="{{ old.user_id ? old.user_id : user.user_id }}">
+	{% if errors.user_id %}
+	  <span class="invalid-feedback">{{ errors.user_id | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>
+
+<div class="form-group col-lg-3 py-3 pt-3">
+	<label class="text-muted" for="first_name"><i class="fas fa-user"></i> First Name</label>	
+	<input class="gapex {{ errors.first_name ? ' is-invalid': '' }}" type="text" name="first_name" id="first_name" value="{{ old.first_name ? old.first_name : user.first_name }}">
+	{% if errors.first_name %}
+	  <span class="invalid-feedback">{{ errors.first_name | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="last_name"><i class="fas fa-user"></i> Last Name</label>	
+	<input class="gapex {{ errors.last_name ? ' is-invalid': '' }}" type="text" name="last_name" id="last_name" value="{{ old.last_name ? old.last_name : user.last_name }}">
+	{% if errors.last_name %}
+	  <span class="invalid-feedback">{{ errors.last_name | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>
+
+{% include 'user/form/middlename.twig' %}
+{% include 'user/form/maidenname.twig' %}
+{% include 'user/form/nativename.twig' %}
+{% include 'user/form/nickname.twig' %}
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="gender"><i class="fas fa-transgender"></i> Gender<br></label>
+	<select class="gapex bg-white{{ errors.gender ? ' is-invalid': '' }}" name="gender" id="gender" value="">
+		<option disabled=""></option>
+		<option {{ old.gender == 'm' or user.gender == 'm' ? 'selected': ''}} value="m">Male (&#9894)</option>
+		<option {{ old.gender == 'f' or user.gender == 'f' ? 'selected': ''}} value="f">Female (&#9792)</option>
+	</select>
+	{% if errors.gender %}
+	  <span class="invalid-feedback">{{ errors.gender | first | capitalize }}</span>
+	{% endif %}
+</div>
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="date_of_birth"><i class="fas fa-birthday-cake"></i> Date of Brith</label>
+	<input class="gapex bg-white {{ errors.date_of_birth ? ' is-invalid': '' }}" type="text" name="date_of_birth" id="datepicker" value="{{ old.date_of_birth ? old.date_of_birth : user.date_of_birth }}">
+	{% if errors.date_of_birth %}
+	  <span class="text-danger">
+	  	<small>{{errors.date_of_birth | first | capitalize | replace({'_': ' '})}}</small>
+	  </span>
+	  {% else %}
+	      <small class="text-muted">When were you <b>born</b>?</small>
+	{% endif %}
+</div>
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="country_of_birth"><i class="fas fa-globe-americas"></i> Country of Birth</label>	
+	<input class="gapex {{ errors.country_of_birth ? ' is-invalid': '' }}" type="text" name="country_of_birth" id="country_of_birth" value="{{ old.country_of_birth ? old.country_of_birth : user.country_of_birth }}">
+	{% if errors.country_of_birth %}
+	  <span class="invalid-feedback">{{ errors.country_of_birth | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="place_of_birth"><i class="fas fa-map-marker-alt"></i> Place of Birth</label>	
+	<input class="gapex {{ errors.place_of_birth ? ' is-invalid': '' }}" type="text" name="place_of_birth" id="place_of_birth" value="{{ old.place_of_birth ? old.place_of_birth : user.place_of_birth }}">
+	{% if errors.place_of_birth %}
+	  <span class="invalid-feedback">{{ errors.place_of_birth | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>
+
+<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+	<label class="text-muted" for="username"><i class="fas fa-user-circle"></i> Username</label>	
+	<input class="gapex {{ errors.username ? ' is-invalid': '' }}" type="text" name="username" id="username" value="{{ old.username ? old.username : user.username }}">
+	{% if errors.username %}
+	  <span class="invalid-feedback">{{ errors.username | first | capitalize }}</span>
+	  {% else %}
+	      <small class="text-muted"><b>Letters</b> only.</small>
+	{% endif %}
+</div>	

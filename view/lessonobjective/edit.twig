@@ -1,0 +1,63 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-bullseye"></i> Update Lesson Objective</h1>
+  <p class="text-muted">This is where you create new lesson videos.</p> 
+
+  <form action="{{path_for('lessonobjective.update',{lessonobjective_id:lessonobjective.id})}}" method="post">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('lessonobjective.show',{lessonobjective_id:lessonobjective.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	<div class="form-group">
+		<label for="rank"><b>Rank</b></label>
+		<input class="form-control border-remove {{ errors.rank ? ' is-invalid': '' }}" type="number" name="rank" value="{{ old.rank ? old.rank: lessonobjective.rank }}" id="rank">
+		{% if errors.rank %}
+		  <span class="invalid-feedback">{{ errors.rank | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label  for="objective"><b>Objective</b></label>
+		<textarea class="form-control border-remove {{ errors.objective ? ' is-invalid': '' }}" type="textarea" name="objective" id="objective" rows="2" cols="50">{{ old.objective ? old.objective: lessonobjective.objective }}</textarea>
+
+		{% if errors.objective %}
+		  <span class="invalid-feedback">{{ errors.objective | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label  for="reasoning"><b>Reasoning</b></label>
+		<textarea class="form-control border-remove {{ errors.reasoning ? ' is-invalid': '' }}" type="textarea" name="reasoning" id="reasoning" rows="2" cols="50">{{ old.reasoning ? old.reasoning: lessonobjective.reasoning }}</textarea>
+
+		{% if errors.reasoning %}
+		  <span class="invalid-feedback">{{ errors.reasoning | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

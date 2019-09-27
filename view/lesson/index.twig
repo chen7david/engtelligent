@@ -1,0 +1,27 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lessons{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> Manage Lessons</h1>
+  <p class="text-muted">lesson: {{ lessons.count ? lessons.count : '0' }}</p> 
+
+  <p><a class="btn btn-dark btn-circle" href="{{path_for('lesson.create')}}"><i class="fas fa-plus"></i></a></p>
+
+
+	<div class="list-group">
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 400px;">
+		{% for lesson in lessons %}
+		  <a href="{{path_for('lesson.show',{lesson_id : lesson.id})}}" class="list-group-item list-group-item-action">
+		  	<img class="m-0 p-0 " src="{{base_url('/') ~ lesson.path}}" alt="{{product.name}}" style="border-radius: 50%; height:30px; width:30px; border:2px solid #e6eeef;">
+		  	<span class="text-muted">{{lesson.name}}</span>	
+		  </a>
+		{% endfor %}
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+	</div>
+
+</div>
+
+
+{% endblock %}

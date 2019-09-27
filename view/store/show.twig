@@ -1,0 +1,111 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Store{% endblock %}
+
+{% block body %}
+<div class="row">	
+
+<div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-8 alert alert-light p-1 row mx-auto">
+	<div class="col-lg-4 mt-3">
+	<ul class="nav">
+		<li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('store.index')}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+
+	  <li>&nbsp</li><li>&nbsp</li>
+	  <li class="nav-item">  
+	    <a class="btn btn-dark btn-circle" href="{{path_for('product.edit',{product_id:product.id})}}" data-toggle="modal" data-target="#myModal">
+	    	<i class="fas fa-shopping-cart"></i>
+	    </a>
+	  </li>
+	</ul>
+		<div class="text-center pt-4">
+		<img class="" src="{{base_url('/') ~ batch.product.path}}" alt="{{product.name}}" style="border-radius: 50%; ">
+		</div>
+				 
+	</div>
+	<div class="col-lg-8">
+		<h2 class="mt-2 text-center">{{batch.product.name}}</h2>
+		<hr>
+ 		<p><strong>Description:</strong> {{batch.product.description}}</p>
+ 		<div class="p-1">
+			<table class="table mt-3">
+ 			<tr>
+ 				<td>Name</td>
+ 				<td>{{batch.product.name}}</td>
+ 			</tr>
+ 			<tr>
+ 				<td>Stock</td>
+ 				<td>{{batch.amount}}</td>
+ 			</tr>
+ 			<tr>
+ 				<td>Price</td>
+ 				<td class="text-success"><i class="fas fa-strikethrough"></i>{{batch.price}}</td>
+ 			</tr>
+ 			<tr>
+ 				<td>Expiration Date</td>
+ 				<td>{{batch.expiration_date}}</td>
+ 			</tr>
+ 		</table>
+		</div>
+	</div>
+</div>
+
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Purchase Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        Please make sure you want to purchase this item as refunds are not posible. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      <ul class="nav p-2">
+	  <li>&nbsp</li>  
+	  	  <li>&nbsp</li> 
+	  <li>&nbsp</li> 
+	  <li><p class="text-muted pt-1">Amount:</p></li> 
+	  <li>&nbsp</li> 
+	  <li class="nav-item">
+    	<form action="{{path_for('order.create',{batch_id:batch.id})}}" method="post">
+    		<select class="gapex bg-white pt-1" name="amount" id="">
+    			{% for i in range(1,batch.amount) %}
+    			    <option style="text-align:center" value="{{i}}">{{i}}</option>
+    			{% endfor %}
+    		</select>
+    		<input type="hidden" name="batch_id" value="{{batch.id}}">
+    	
+	  </li>
+	  <li>&nbsp</li> 
+	  <li class="nav-item">
+    	<button class="btn btn-success btn-circle" type="submit">
+    		<i class="fas fa-shopping-cart"></i>
+   		</button>
+    	</form>
+	  </li>
+	  <li>&nbsp</li> 
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" data-dismiss="modal">
+    		<i class="fas fa-times"></i>
+   		</button>
+	  </li> 
+	</ul>
+	</div>
+    </div>
+  </div>
+</div>
+{% endblock %}

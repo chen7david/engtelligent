@@ -1,0 +1,27 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}IsAuthorized{% endblock %}
+
+{% block body %}
+
+<div class="row">
+
+<div class="jumbotron bg-light col-9 mx-auto text-center">
+	<p class="p-0 m-0">
+		<img class="" src="{{base_url('/') ~ auth.user.avatar}}" alt="Profile Picture" style="width: 190px; height: 190px; border-radius: 50%; border:6px solid #e6eeef;;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+	</p>
+	<p class="mt-3" >{{user.name}}</p>
+			<hr>
+			<p><a class="btn btn-success btn-circle" href=""><i class="fas fa-check"></i></a></p>
+			<h1><i class="fas fa-key"></i></h1>
+	<p>
+	</p>
+
+</div>
+
+	
+
+</div>
+
+
+
+{% endblock %}

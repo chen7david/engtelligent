@@ -1,0 +1,112 @@
+Searching 1876 files for ":persistWillExpire()" (case sensitive, whole word)
+
+0 matches
+
+Searching 1876 files for "persistWillExpire" (case sensitive, whole word)
+
+/Users/davidchen/Documents/Sites/new/system/app/Middleware/AppMiddleware.php:
+   50  
+   51  			}
+   52: 			var_dump($token->persistWillExpire());
+   53  			$token->logCallCount();
+   54  			
+
+1 match in 1 file
+
+
+Searching 1876 files for "print_r" (case sensitive, whole word)
+
+/Users/davidchen/Documents/Sites/new/system/app/Middleware/AppMiddleware.php:
+   49  
+   50  			}
+   51: 			print_r($token->refreshIn());
+   52  			$token->logCallCount();
+   53  			
+
+/Users/davidchen/Documents/Sites/new/vendor/chillerlan/php-traits/src/Enumerable.php:
+  117  	 */
+  118  	public function __inspect():string {
+  119: 		return print_r($this->array, true);
+  120  	}
+  121  
+
+/Users/davidchen/Documents/Sites/new/vendor/phpmailer/phpmailer/src/POP3.php:
+  386              echo '<pre>';
+  387              foreach ($this->errors as $e) {
+  388:                 print_r($e);
+  389              }
+  390              echo '</pre>';
+
+/Users/davidchen/Documents/Sites/new/vendor/slim/flash/README.md:
+   42      // Get flash messages from previous request
+   43      $messages = $this->flash->getMessages();
+   44:     print_r($messages);
+   45  
+   46      // Get the first message from a specific key
+   47      $test = $this->flash->getFirstMessage('Test');
+   48:     print_r($test);
+   49  });
+   50  
+
+/Users/davidchen/Documents/Sites/new/vendor/twig/twig/doc/recipes.rst:
+   20      $deprecations = new Twig_Util_DeprecationCollector($twig);
+   21  
+   22:     print_r($deprecations->collectDir(__DIR__.'/templates'));
+   23  
+   24  The ``collectDir()`` method compiles all templates found in a directory,
+   ..
+   45      // run your application
+   46  
+   47:     print_r($deprecations);
+   48  
+   49  Note that most deprecation notices are triggered during **compilation**, so
+
+7 matches across 5 files
+
+
+Searching 1876 files for "expires_in" (case sensitive, whole word)
+
+/Users/davidchen/Documents/Sites/new/system/app/Controller/AuthController.php:
+   61  			'active' => true,
+   62  			'hash' => Hash::render(),
+   63: 			'expires_in' => Config::get('cookie.duration'),
+   64  			'calls' => 0,
+   65  			'persited_at'=> Carbon::NOW(),
+
+/Users/davidchen/Documents/Sites/new/system/app/Model/Token.php:
+   14  		'auth',
+   15  		'active',
+   16: 		'expires_in',
+   17  		'hash',
+   18  		'calls',
+
+2 matches across 2 files
+
+
+Searching 1876 files for "expires_in" (case sensitive, whole word)
+
+/Users/davidchen/Documents/Sites/new/system/app/Model/Token.php:
+   14  		'auth',
+   15  		'active',
+   16: 		'expires_in',
+   17  		'hash',
+   18  		'calls',
+
+1 match in 1 file
+
+
+Searching 1876 files for "activeTokens" (case sensitive, whole word)
+
+/Users/davidchen/Documents/Sites/new/system/app/Model/User.php:
+  114  	}
+  115  
+  116: 	public function activeTokens(){
+  117  		return $this->tokens()->where('active',true)->sum('active');
+  118  	}
+  119  
+  120  	public function limitActiveTokens(){
+  121: 		$active = $this->activeTokens + 1;
+  122  		$allowed = $this->league()->connections;
+  123  		if ($active >= $allowed) {
+
+2 matches in 1 file

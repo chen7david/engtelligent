@@ -1,0 +1,115 @@
+body{
+	background-color: #efeee8;
+}
+.body-scrollable {
+  overflow-y: scroll;
+  left: 0;
+  top: 0;
+  height:80%;
+}
+
+.scrollable {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  left: 0;
+  top: 0;
+}
+
+ul {
+    list-style-type: square;
+}
+
+.gapex {
+  outline: 0;
+  border-width: 0 0 1px;
+  border-color: #afb4bc;
+  background-color: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+
+  width: 100%;
+}
+.gapex:focus {
+  border-color: #bbbdc1;
+  border-width: 0 0 1px;
+}
+
+.border-remove {
+  outline: 0;
+  border-width: 0 0px;
+  border-color: black
+  background-color: none;
+  border-radius: 0;
+  resize: none;
+  -webkit-appearance: none;
+
+  width: 100%;
+}
+
+.text-skin {
+	color: #605d57;
+}
+
+.borderless td, .borderless th {
+    border: none;
+}
+
+a.nostyle:link {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+a.nostyle:visited {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.div_hover { 
+  background-color: #FFFFFF; 
+}
+
+.div_hover:hover { 
+  background-color: #f2f5f9; 
+  color: #FFFFFF;
+  cursor: pointer; 
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
+
+.truncate {
+  width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+
+

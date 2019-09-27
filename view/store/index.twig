@@ -1,0 +1,30 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Store{% endblock %}
+
+{% block body %}
+<div class="row">		
+	
+			{% for product in products %}
+			
+				{% for batch in product.batches %}
+					{% if batch.is_published %}
+					<div class="col-6 col-sm-6 col-md-3 col-lg-3 col-xl-2 p-2">
+					  <a class="nostyle" href="{{path_for('store.show',{batch_id : batch.id})}}">
+							<div class="bg-dark">
+							  <img class="card-img rounded-0" src="{{base_url('/') ~ product.path}}" alt="Card image">
+							  <div class="card-body bg-dark pb-0">
+							    <span class="text-white d-inline-block text-truncate" style="max-width:100%;">{{product.name}}</span>
+							    <p class="text-white pb-2"><b><i class="fas fa-strikethrough"></i> {{batch.price}}</b></p>
+							  </div>	  
+							</div>
+						  </a>
+					 </div>
+				    {% endif %}
+				{% endfor %}
+
+			{% endfor %}
+
+	
+	
+</div>
+{% endblock %}

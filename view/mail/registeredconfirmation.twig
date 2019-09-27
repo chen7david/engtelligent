@@ -1,0 +1,27 @@
+{% extends 'mail/includes/template.twig' %}
+{% block title %}Registered Confirmation{% endblock %}
+
+{% block body %}
+<h4>Thanks for joining us!</h4>
+<p>
+	This is to inform you that you are now officially a registered member of the Engtelligent learning team. Thanks for taking the time to create an account. We sure hope that you will enjoy our services. Below you will find your account details.
+</p> 
+
+<h6>Account Details:</h6>
+<ul>
+	<li>Username: <b>{{user.username}}</b></li>
+	<li>Email: <b>{{user.email}}</b></li>
+	<li>Phone number: <b>{{user.phone_number}}</b></li>
+	<li>Default Password: <b>888888</b></li>
+	<small>Please do not continue using the default password, change it ASAP to make your account more secure.</small>
+</ul>
+
+<p>Best regards,</p>
+<p>David M. Chen</p>
+
+<p>At Engtelligent TLD</p>
+<p>www.engtelligent.com</p>
+{% endblock %}
+
+
+

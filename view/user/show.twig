@@ -1,0 +1,134 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}View User{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block styles_hb %}
+	<link rel="stylesheet" href="{{base_url()}}/includes/styles/zebra_datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="row">
+<form action="{{path_for('user.update',{user_id: user.id})}}" method="post" enctype="multipart/form-data">	
+	<div class="col-lg-11 mx-auto">
+		<div class="card">
+			<div class="card-header">
+			
+				<ul class="nav">				 
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('user.index')}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				  <li>&nbsp</li>
+				  {% include 'user/edit/topmenu.twig' %}
+				  <li>&nbsp</li>
+				  <li class="nav-item">
+				    <a class="btn btn-danger btn-circle float-right" href="#" data-toggle="modal" data-target="#myModal">
+				    	<i class="fas fa-times"></i>
+				    </a>
+				  </li>
+
+				</ul>
+			</div>
+
+			<div class="card-body row">
+					<div class="col-12 col-sm-3 col-md-3 col-lg-3 col-xl-3 text-center p-4 mx-auto">
+						<img class="my-2 " src="{{base_url('/') ~ user.avatar}}" alt="{{user.name}}" style="border-radius: 50%; height:130px; width:130px; border:8px solid #e6eeef;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+						<h4>{{user.name}}</h4>
+						<div class="btn-group">	
+					<label class="btn btn-sm">
+						Brouse<input type="file" name="avatar" hidden>
+					</label>
+					<label class="btn btn-sm">
+						Upload<input type="submit" value="Upload" hidden>
+					</label>
+				</div>
+
+						<p class="text-center">
+							<hr>
+							{{user.gender == 'm' ? '<i class="fas fa-male"></i>' : '<i class="fas fa-female"></i>' }}
+							{{user.username}}
+						</p>
+						<p>
+							<div class="collapse text-center" id="avatar{{user.id}}" >
+								<span class="badge btn-light badge-pill">
+									<i class="fas fa-strikethrough"></i> {{user.points}}
+								</span>
+									<p class="p-0 m-0"><i class="fas fa-sun"></i> <small>{{user.age}}</small></p>
+									<p class="p-0 m-0">
+										<small><i class="fas fa-chalkboard-teacher"></i>
+											{{user.sessioncount}}
+										</small>
+									</p>
+									{% if user.groups.count > 0 %}
+							<div class="alert text-left alert-light my-2">
+							
+									{% for group in user.groups %}
+									   <i class="fas fa-users"></i> <small>{{group.name}}</small>
+									{% endfor %}
+
+							</div>
+
+						{% endif %}
+									
+							</div>
+						</p>						
+					</div>
+
+					<div class="col-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+						<div class="alert alert-light row">
+							{% include 'user/form/user.twig' %}
+							{% include 'user/form/phonenumber.twig' %}
+							{% include 'user/form/email.twig' %}
+							{% include 'user/form/conobj.twig' %}
+						</div>
+					</div>
+				</div>		
+		
+	
+
+		</div>
+
+	</div>
+</form>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('user.delete',{user_id : user.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts_fb %}
+<script src="{{base_url()}}/includes/scripts/zebra_datepicker.min.js"></script>
+
+<script type="text/javascript">
+	$('#datepicker').Zebra_DatePicker();
+</script>
+{% endblock %}

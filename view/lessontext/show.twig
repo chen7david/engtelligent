@@ -1,0 +1,106 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fab fa-leanpub"></i> New Lesson Text</h1>
+  <p class="text-muted">This is where you create new lesson reading texts.</p> 
+
+  <form action="{{path_for('lessonvideo.store')}}" method="post" enctype="multipart/form-data">
+
+<!-- Menu items  -->
+<ul class="nav p-2">
+ <li class="nav-item">
+	<a class="btn btn-dark btn-circle" href="{{path_for('lesson.show',{lesson_id:lessontext.lesson_id})}}">
+		<i class="fas fa-chevron-left"></i>
+	</a>
+  </li>
+  <li>&nbsp</li><li>&nbsp</li>
+  <li class="nav-item">  
+    <a class="btn btn-dark btn-circle" href="{{path_for('lessontext.edit',{lessontext_id:lessontext.id})}}">
+    	<i class="fas fa-pen"></i>
+    </a>
+  </li>
+
+  <li>&nbsp</li><li>&nbsp</li>
+  <li class="nav-item">
+    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+    	<i class="fas fa-times"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div class="alert alert-light">
+	<h1 class="text-dark">{{lessontext.title}}</h1>
+<p class="text-dark">{{lessontext.subtitle}}</p>
+	<p><small>Written By {{lessontext.author}}</small></p>
+	<hr>
+	
+	<p>{{lessontext.body}}</p>
+	<p ><h4 class="text-center">~The End~</h4></p>
+</div>
+
+<ul class="nav mt-5">
+<li class="nav-item"> 
+<a class="btn btn-dark btn-circle" href="{{path_for('lessontextquestion.create',{lessontext_id:lessontext.id})}}">
+  <i class="fas fa-plus"></i>
+</a>
+<li>&nbsp</li><li>&nbsp</li>
+</li>
+<li class="nav-item"> 
+  <h4 class=""><i class="fas fa-question-circle"></i> Lesson Text Questions</h4>
+</li>
+</ul>
+
+<div class="list-group my-3">
+  {% if lessontext.lessontextquestions.count != 0 %}
+  {% for lessontextquestion in lessontext.lessontextquestions %}
+    <a href="{{path_for('lessontextquestion.show',{lessontextquestion_id : lessontextquestion.id})}}" class="list-group-item list-group-item-action">
+      
+      <p class="p-0 m-0"><i class="fas fa-question-circle"></i> <b>Q{{lessontextquestion.rank}}</b> {{lessontextquestion.question}}</p>
+    </a>
+  {% endfor %}
+  {% else %}
+      <div class="alert alert-light text-center p-5">
+        There are no <strong>lesson text</strong> yet.
+      </div>
+  {% endif %}
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <a class="btn btn-danger btn-sm" href="{{path_for('lessontext.delete',{lessontext_id : lessontext.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

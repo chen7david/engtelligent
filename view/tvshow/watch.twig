@@ -1,0 +1,80 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}lessons{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron pt-4 bg-light col-lg-12 mx-auto">
+<ul class="nav p-2">
+ <li class="nav-item">
+	<a class="btn btn-dark btn-circle" href="{{path_for('tvshow.info',{tvshow_id:episode.season.tvshow.id,season_rank:episode.season.rank})}}">
+		<i class="fas fa-chevron-left"></i>
+	</a>
+  </li>
+</ul>
+<div class="alert alert-light p-1 row">
+		
+		<div class="col-lg-8">
+			<video id="vid" width="100%px;"  controls autoplay controlsList="nodownload">
+		        <source  src="{{base_url('/') ~ episode.path }}" type="video/mp4">
+		        Your browser does not support the video tag.
+		    </video>
+		    <small>{{episode.season.tvshow.name}}</small>
+		    <p class="text-dark p-0 m-0"><b>S{{episode.season.rank}}E{{episode.rank}}</b>	{{episode.name}}</p>
+
+			<p><small><strong>Description:</strong> {{episode.description}}</small></p>
+		</div>
+
+		<div class="col-lg-4">
+		 <div class="list-group list-group-flush my-3 scrollable" style="height: 100%;">
+				{% if episode.season.episodes.count != 0 %}
+				{% set x = 0 %}
+				{% for watchepisode in episode.season.episodes %}
+				  <a id="{% if x == 2 %}{% set x = x + 1 %}nextvideo{% endif %}" href="{{path_for('tvshow.watch',{episode_id : watchepisode.id})}}" class="list-group-item list-group-item-action">
+				  	
+				    <p class="truncate p-0 m-0"><small>
+				    	{% if episode.id == watchepisode.id %}<i class="fa fa-caret-right"></i>{% set x = 2 %}{% endif %}
+				    	
+
+					    <b>E{{watchepisode.rank}}</b> {{watchepisode.name}}</small>
+				    </p>
+				  </a>
+				{% endfor %}
+				{% else %}
+				    <div class="alert alert-light text-center p-5">
+				    	There are no <strong>lesson videos</strong> yet.
+				    </div>
+				{% endif %}
+			</div>
+		</div> 
+	</div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts_ft %}
+<script type="text/javascript">
+
+	$(window).keypress(function(e) {
+	  var video = document.getElementById("vid");
+	  if (e.which == 32) {
+	    if (video.paused)
+	      video.play();
+	    else
+	      video.pause();
+	  }
+	});
+
+	document.getElementById('vid').addEventListener('ended',myHandler,false);
+    function myHandler(e) {
+    	document.getElementById('nextvideo').click();
+    }
+
+</script>
+{% endblock %}
+

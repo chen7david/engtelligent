@@ -1,0 +1,19 @@
+
+
+
+
+<li class="nav-item"> 
+	<div class="dropdown"> 
+	<a class="btn btn-dark btn-circle" data-toggle="dropdown" href="{{path_for('user.edit',{user_id : user.id})}}">
+		<i class="fas fa-plus"></i>
+	</a>
+	  <div class="dropdown-menu">
+	  	{% include 'user/edit/dropdown.twig' %}
+	</div>
+</li>
+<li>&nbsp</li>
+<li class="nav-item">
+	<button class="btn btn-dark btn-circle" type="submit">
+		<i class="fas fa-check"></i>
+	</button>
+</li>

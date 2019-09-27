@@ -1,0 +1,68 @@
+{% for conobj in user.conobjs %}
+	<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+		<label class="text-muted" for="conobj"> 
+
+		{% if conobj.name == 'wechat' %}<i class="fab fa-weixin"></i>{% endif %}
+		{% if conobj.name == 'qq' %}<i class="fab fa-qq"></i>{% endif %}
+		{% if conobj.name == 'skype' %}<i class="fab fa-skype"></i>{% endif %}
+		{% if conobj.name == 'whatsapp' %}<i class="fab fa-whatsapp"></i>{% endif %}
+		{% if conobj.name == 'weibo' %}<i class="fab fa-weibo"></i>{% endif %}
+
+		{% if conobj.name == 'renren' %}<i class="fab fa-renren"></i>{% endif %}
+		{% if conobj.name == 'twitter' %}<i class="fab fa-twitter"></i>{% endif %}
+		{% if conobj.name == 'facebook' %}<i class="fab fa-facebook"></i>{% endif %}
+		{% if conobj.name == 'linked' %}<i class="fab fa-linkedin"></i>{% endif %}
+		{% if conobj.name == 'tumblr' %}<i class="fab fa-tumblr-square"></i>{% endif %}
+
+		{% if conobj.name == 'line' %}<i class="fab fa-line"></i>{% endif %}
+		{% if conobj.name == 'instagram' %}<i class="fab fa-instagram"></i>{% endif %}
+		{% if conobj.name == 'snapchat' %}<i class="fab fa-snapchat"></i>{% endif %}
+		{% if conobj.name == 'webpage' %}<i class="fab fa-internet-explorer"></i>{% endif %}
+
+			{{conobj.name | capitalize }}
+
+		</label>
+		{% if not conobj.is_primary %}
+			<a class="nostyle text-dark float-right" href="" data-toggle="modal" data-target="#{{conobj.id}}myModal">
+			     <i class="fas fa-times"></i>
+			</a>	
+		{% endif %}
+		<input type="hidden" name="conobj[{{conobj.id}}][id]" value="{{conobj.id}}">
+		<input class="gapex {{ errors.conobj ? ' is-invalid': '' }}" type="text" name="conobj[{{conobj.id}}][text]" id="conobj" value="{{ old.conobj ? old.conobj : conobj.text}}">	
+		{% if errors.conobj %}
+		  <span class="invalid-feedback">{{ errors.conobj | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+						
+<!-- The Modal -->
+<div class="modal" id="{{conobj.id}}myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('user.detach',{
+			user_id:user.id,
+			obj:'conobj',
+			obj_id:conobj.id
+		})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endfor %}

@@ -1,0 +1,76 @@
+{% if flash.getMessage('green') %}
+<div class="alert alert-success alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Success!</strong> {{ flash.getMessage('green') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('info') %}
+<div class="alert alert-info alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong><i class="fas fa-info-circle"></i></strong> {{ flash.getMessage('info') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('warning') %}
+<div class="alert alert-warning alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong><i class="fas fa-exclamation-triangle"></i></strong> {{ flash.getMessage('warning') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('success') %}
+<div class="alert alert-warning alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong><i class="fas fa-check-circle"></i></strong> {{ flash.getMessage('success') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('danger') %}
+<div class="alert alert-danger alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong><i class="fas fa-exclamation-circle"></i></strong> {{ flash.getMessage('danger') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('primary') %}
+<div class="alert alert-primary alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Success!</strong> {{ flash.getMessage('primary') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('secondary') %}
+<div class="alert alert-secondary alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Error!</strong> {{ flash.getMessage('secondary') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('dark') %}
+<div class="alert alert-dark alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Error!</strong> {{ flash.getMessage('dark') | first }}	
+	<a href="{{path_for('email.resendvercode',{hash: flash.getMessage('dark') | first })}}" class="alert-link">read this message</a>
+</div>
+{% endif %}
+
+{% if flash.getMessage('light') %}
+<div class="alert alert-light alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>Error!</strong> {{ flash.getMessage('light') | first }}
+</div>
+{% endif %}
+
+{% if flash.getMessage('textbeforelink') %}
+<div class="alert alert-warning alert-dismissible">
+	<button type="button" class="close" data-dismiss="alert">&times;</button>
+	<strong>{{ flash.getMessage('linktitle') | first }}</strong> {{ flash.getMessage('textbeforelink') | first }}	
+	<a href="{{path_for('email.resendvercode',{hash: flash.getMessage('paramone') | first })}}" class="alert-link">
+		{{ flash.getMessage('textlink') | first }}
+	</a>
+	{{ flash.getMessage('textafterlink') | first }}	
+</div>
+{% endif %}
+
+{{link}}

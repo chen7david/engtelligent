@@ -1,0 +1,67 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Lesson Videos{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-video"></i> Update Episode</h1>
+  <p class="text-muted">This is where you create new lesson videos.</p> 
+
+  <form action="{{path_for('episode.update',{episode_id:episode.id})}}" method="post" enctype="multipart/form-data">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('episode.show',{episode_id:episode.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	<div class="form-group">
+		<label for="name"><b>Name</b></label>
+		<input class="form-control border-remove {{ errors.name ? ' is-invalid': '' }}" type="text" name="name" value="{{ old.name ? old.name: episode.name }}" id="name">
+		{% if errors.name %}
+		  <span class="invalid-feedback">{{ errors.name | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="rank"><b>Rank</b></label>
+		<input class="form-control border-remove {{ errors.rank ? ' is-invalid': '' }}" type="number" name="rank" value="{{ old.rank ? old.rank: episode.rank }}" id="rank">
+		{% if errors.rank %}
+		  <span class="invalid-feedback">{{ errors.rank | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label  for="description"><b>Description</b></label>
+		<textarea class="form-control border-remove {{ errors.description ? ' is-invalid': '' }}" type="textarea" name="description" id="description" rows="2" cols="50">{{ old.description ? old.description: episode.description }}</textarea>
+
+		{% if errors.description %}
+		  <span class="invalid-feedback">{{ errors.description | first | capitalize }}</span>
+		{% endif %}
+	</div>
+	<input type="hidden" name="episode_id" value="{{episode.id}}">
+	<div class="custom-file">
+	    <input type="file" class="custom-file-input" name="video_file" id="customFile">
+	    <label class="custom-file-label" for="customFile">Choose an mp4 video</label>
+	</div>
+
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}

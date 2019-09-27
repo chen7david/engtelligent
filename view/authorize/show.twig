@@ -1,0 +1,25 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Autherized History{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-key"></i> Manage Authorizations</h1>
+  <p class="text-muted">lesson: {{ lessons.count ? lessons.count : '0' }} | Active: 3 | Online: 5 | </p> 
+
+	<div class="list-group">
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 200px;">
+		{% for autherized in authorizations %}
+		  <a href="#" class="list-group-item list-group-item-action">
+		  	<img class="m-0 p-0 " src="{{base_url('/') ~ autherized.user.avatar}}" alt="{{autherized.user.name}}" style="border-radius: 50%; height:30px; width:30px; border:2px solid #e6eeef;">
+		  	<span class="text-muted">{{autherized.user.name}} <small>({{autherized.created_at}})</small></span>	
+		  </a>
+		{% endfor %}
+		<div class="list-group list-group-flush my-3 scrollable" style="height: 160px;">
+	</div>
+
+</div>
+
+
+{% endblock %}

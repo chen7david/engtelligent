@@ -1,0 +1,14 @@
+<div class="dropdown-header">Names</div>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'middle_name'})}}"><i class="fas fa-user"></i> <small>Middle Name</small></a>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'native_name'})}}"><i class="fas fa-globe"></i> <small>Native Name</small></a>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'nick_name'})}}"><i class="fas fa-user"></i> <small>Nick Name</small></a>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'maiden_name'})}}"><i class="fas fa-female"></i> <small>Maiden Name</small></a>
+<div class="dropdown-header">Contact</div>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'email'})}}"><i class="fas fa-envelope"></i> <small>Email</small></a>
+    <a class="dropdown-item" href="{{path_for('user.append',{user_id:user.id,obj:'phone_number'})}}"><i class="fas fa-mobile-alt"></i> <small>Phone Number</small></a>
+
+<a class="dropdown-item" href="{{path_for('user.getappend.contactobject',{user_id:user.id})}}"><i class="fas fa-plus-circle"></i> <small>Contact Object</small></a>
+
+
+
+</div>

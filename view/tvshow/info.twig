@@ -1,0 +1,66 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}tvshows{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+			  <ul class="nav p-2">
+				 <li class="nav-item">
+			    	<a class="btn btn-dark btn-circle" href="{{path_for('tvshow.collection')}}">
+			    		<i class="fas fa-chevron-left"></i>
+			    	</a>
+				  </li>
+				</ul>
+
+		<div class="alert alert-light p-1 row">
+			<div class="col-lg-3 text-center">
+				<img class="mt-4 p-1" src="{{base_url('/') ~ tvshow.path}}" alt="{{tvshow.name}}" style="width: 142px; height: 208px;">
+			</div>
+			<div class="col-lg-8">
+				<h2 class="mt-2">{{tvshow.name}}</h2>
+				<hr>
+		 		<p><strong>Description:</strong> {{tvshow.description}}</p>
+		 		<p>
+		 			<ul class="pagination">
+						{% if tvshow.seasons.count != 0 %}
+							{% if tvshow.seasons.count > 1 %}
+								{% for season in tvshow.seasons %}	
+									<li class="page-item {{ thisseason.id == season.id ? 'active' : '' }}" >
+										<a class="page-link" href="{{path_for('tvshow.info',{tvshow_id : tvshow.id, season_rank: season.rank})}}">{{season.rank}}</a>
+									</li>
+								{% endfor %}
+							{% endif %}
+						{% else %}
+						    <div class="alert alert-light text-center p-5">
+						    	There are no <strong>seasons</strong> yet.
+						    </div>
+						{% endif %}
+					</ul>
+		 		</p>
+
+		 		<p>
+		 	<div class="list-group mt-2">
+
+			{% if thisseason.episodes.count != 0 %}
+				<div class="list-group list-group-flush my-3 scrollable" style="height: 100%;">
+				{% for episode in thisseason.episodes %}
+					  <a href="{{path_for('tvshow.watch',{episode_id : episode.id})}}" class="list-group-item list-group-item-action">
+				    <p class="truncate p-0 m-0"><small>
+					    <b>S{{episode.season.rank}}E{{episode.rank}}</b> {{episode.name}}</small>
+				    </p>
+				  </a>			    
+				{% endfor %}
+				</div>
+
+			{% else %}
+			    <div class="alert alert-light text-center p-5">
+			    	There are no <strong>episodes</strong> yet.
+			    </div>
+			{% endif %}
+		</div>
+		 		</p>
+			</div>
+		</div>		
+</div>
+{% endblock %}

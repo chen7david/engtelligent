@@ -1,0 +1,92 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Register{% endblock %}
+
+{% block styles_hb %}
+	<link rel="stylesheet" href="{{base_url()}}/includes/styles/zebra_datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+
+<div class="col-lg-3 mx-auto" style="margin-top: 5%">
+	<h4>Register</h4>
+	<hr>
+	<br>
+
+	<form action="{{path_for('app.register')}}" method="post">
+			
+		<div class="form-group">
+			<label for="username">Username</label>			
+			<input class="form-control {{ errors.username ? ' is-invalid': '' }}" type="text" name="username" id="username" value="{{ old.username }}">
+			{% if errors.username %}
+			  <span class="invalid-feedback">{{ errors.username | first | capitalize }}</span>
+			  {% else %}
+			      <small class="text-muted">May only contain <b>letters</b>.</small>
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label for="email">E-mail</label>
+			<input class="form-control {{ errors.email ? ' is-invalid': '' }}" type="text" name="email" id="email" value="{{ old.email }}">
+			{% if errors.email %}
+			  <span class="invalid-feedback">{{ errors.email | first | capitalize }}</span>
+			  {% else %}
+		 	  <small class="text-muted">We will <b>send you an email</b> to activate your account.</small>   
+			{% endif %}
+		</div>
+		
+		<div class="form-group">
+			<label for="phone_number">Phone number</label>
+			<input class="form-control {{ errors.phone_number ? ' is-invalid': '' }}" type="text" name="phone_number" id="phone_number" value="{{ old.phone_number }}">
+			{% if errors.phone_number %}
+			  <span class="invalid-feedback">{{ errors.phone_number | first | capitalize  | replace({'_': ' '}) }}</span>
+			  {% else %}
+			      <small class="text-muted">Must be a valid <b>mobile</b> number.</small>
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label for="gender">Gender</label>
+			<select class="form-control {{ errors.gender ? ' is-invalid': '' }}" name="gender" id="gender" value="">
+				<option></option>
+				<option {{ old.gender == 'm' ? 'selected': ''}} value="m">Male (♂)</option>
+				<option {{ old.gender == 'f' ? 'selected': ''}} value="f">Female (♀)</option>
+			</select>
+			{% if errors.gender %}
+			  <span class="invalid-feedback">{{ errors.gender | first | capitalize }}</span>
+			{% endif %}
+		</div>
+
+		<div class="form-group">
+			<label for="date_of_birth">Date of brith</label>
+			<input class="form-control bg-white {{ errors.date_of_birth ? ' is-invalid': '' }}" type="text" name="date_of_birth" id="datepicker" value="{{ old.date_of_birth }}">
+			{% if errors.date_of_birth %}
+			  <span class="text-danger">
+			  	<small>{{errors.date_of_birth | first | capitalize | replace({'_': ' '})}}</small>
+			  </span>
+			  {% else %}
+			      <small class="text-muted">When were you <b>born</b>?</small>
+			{% endif %}
+		</div>
+
+		<input class="btn btn-dark" type="submit" value="Submit">	
+
+	</form>
+	
+
+		<br>
+			<small class="text-muted">Click <a href="{{path_for('app.login')}}">here</a> if you <b>already have an account</b>. If you <b>forgot your password</b> then click <a href="{{path_for('password.getrecover')}}">here</a>.</small>
+		<br>
+	
+
+</div>
+
+{% endblock %}
+
+{% block scripts_fb %}
+
+<script src="{{base_url()}}/includes/scripts/zebra_datepicker.min.js"></script>
+
+<script type="text/javascript">
+	$('#datepicker').Zebra_DatePicker();
+</script>
+{% endblock %}

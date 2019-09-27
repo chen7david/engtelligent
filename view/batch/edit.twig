@@ -1,0 +1,82 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Products{% endblock %}
+
+{% block styles_hb %}
+	<link rel="stylesheet" href="{{base_url()}}/includes/styles/zebra_datepicker.min.css">
+{% endblock %}
+
+{% block body %}
+
+
+<div class="jumbotron bg-light col-lg-8 mx-auto">
+  <h1><i class="fas fa-warehouse"></i> New Batch</h1>
+  <p class="text-muted">This is where you create new batches.</p> 
+
+  <form action="{{path_for('batch.update',{batch_id:batch.id})}}" method="post">
+
+  	<!-- Menu items  -->
+  	<ul class="nav p-2">
+	 <li class="nav-item">
+    	<a class="btn btn-dark btn-circle" href="{{path_for('batch.show',{batch_id:batch.id})}}">
+    		<i class="fas fa-chevron-left"></i>
+    	</a>
+	  </li>
+	  <li>&nbsp</li>
+	  <li class="nav-item">
+	  	<button class="btn btn-dark btn-circle" type="submit" value="Create">
+    		<i class="fas fa-check"></i>
+   		</button>
+	  </li>
+	</ul>
+
+  	<!-- Form Inputs -->
+
+	  <div class="custom-control custom-checkbox my-2">
+	  <input type="hidden" name="is_published" value="0">
+	  <input type="checkbox" class="custom-control-input" id="customCheck" value="1" name="is_published" 
+		{% if old.is_published == 1 or batch.is_published == 1 %}checked{% endif %}>
+	    <label class="custom-control-label text-muted" for="customCheck">Published (visable to buyers)</label>
+	  </div>
+	
+	<div class="form-group">
+		<label for="amount"><b>Amount</b></label>
+		<input class="form-control border-remove {{ errors.amount ? ' is-invalid': '' }}" type="text" name="amount" value="{{ old.amount ? old.amount: batch.amount }}" id="amount">
+		{% if errors.amount %}
+		  <span class="invalid-feedback">{{ errors.amount | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+		<label for="amount"><b>Price</b></label>
+		<input class="form-control border-remove {{ errors.price ? ' is-invalid': '' }}" type="text" name="price" value="{{ old.price ? old.price: batch.price }}" id="price">
+		{% if errors.price %}
+		  <span class="invalid-feedback">{{ errors.price | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<div class="form-group">
+			<label for="expiration_date"><b>Expiry</b></label>
+			<input class="form-control border-remove bg-white {{ errors.expiration_date ? ' is-invalid': '' }}" type="text" name="expiration_date" id="datepicker" value="{{ old.expiration_date ? old.expiration_date: batch.expiration_date  }}">
+			{% if errors.expiration_date %}
+			  <span class="text-danger">
+			  	<small>{{errors.expiration_date | first | capitalize | replace({'_': ' '})}}</small>
+			  </span>
+			{% endif %}
+		</div>
+</form>
+
+	
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts_fb %}
+
+<script src="{{base_url()}}/includes/scripts/zebra_datepicker.min.js"></script>
+
+<script type="text/javascript">
+	$('#datepicker').Zebra_DatePicker();
+</script>
+{% endblock %}

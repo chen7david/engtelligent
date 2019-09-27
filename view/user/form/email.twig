@@ -1,0 +1,58 @@
+{% for email in user.emails %}
+
+
+	<div class="form-group col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 py-3">
+		<label class="text-muted" for="email"><i class="fas fa-envelope"></i> 
+			
+			E-mail		
+
+		{% if user.email().is_verified %}
+			<i class="fas fa-check-circle text-success"></i>
+		{% else %}
+		    <a href="{{path_for('email.resendvercode',{hash: email.hash})}}">verify</a>
+		{% endif %}
+
+		</label>
+		{% if not email.is_primary %}
+			<a class="nostyle text-dark float-right" href="" data-toggle="modal" data-target="#{{email.id}}myModal">
+			     <i class="fas fa-times"></i>
+			</a>	
+		{% endif %}
+		<input type="hidden" name="email[{{email.id}}][id]" value="{{email.id}}">
+		<input class="gapex {{ errors.email ? ' is-invalid': '' }}" type="text" name="email[{{email.id}}][email]" id="email" value="{{ old.email ? old.email : email.email}}">	
+		{% if errors.email %}
+		  <span class="invalid-feedback">{{ errors.email | first | capitalize }}</span>
+		{% endif %}
+	</div>
+
+	<!-- The Modal -->
+	<div class="modal" id="{{email.id}}myModal">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header">
+	        <h5 class="modal-title">Delete Confirmation</h5>
+	        
+	      </div>
+
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        You will not be able to recover this item if you choose to delete it. 
+	        
+	      </div>
+
+	      <!-- Modal footer -->
+	      <div class="modal-footer">
+	      	<a class="btn btn-danger btn-sm" href="{{path_for('user.detach',{
+				user_id:user.id,
+				obj:'email',
+				obj_id:email.id
+			})}}">Delete</a>
+	        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+{% endfor %}

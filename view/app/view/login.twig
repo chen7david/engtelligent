@@ -1,0 +1,39 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}Login{% endblock %}
+
+{% block body %}
+{{user}}
+<div class="col-lg-3 mx-auto" style="margin-top:20%">
+	<h4>Login</h4>
+	<hr>
+	<form action="{{path_for('app.login')}}" method="post">
+
+		<div class="form-group">
+			<label for="username">Username</label>
+			<input class="form-control {{ errors.username ? ' is-invalid': '' }}" type="text" name="username" value="{{ old.username }}" id="username">
+			{% if errors.username %}
+			  <span class="invalid-feedback">{{ errors.username | first | capitalize }}</span>
+			 {% else %}
+			     <small class="text-muted">You may also use your <b>email or phone number</b> to login.</small>
+			{% endif %}
+		</div>
+
+		<div class="form-group {{ errors.password ? ' is-invalid': '' }}">
+			<label for="password">Password</label>
+			<input class="form-control {{ errors.password ? ' is-invalid': '' }}" type="password" name="password" value="{{ old.password }}" id="password">
+			{% if errors.password %}
+			  <span class="invalid-feedback">{{ errors.password | first | capitalize }}</span>
+			{% endif %}
+		</div>
+		
+		<input type="hidden" name="route_name" value="">
+
+		<input class="btn btn-dark" type="submit" value="Submit">
+
+	</form>
+	<br>
+
+		<small class="text-muted">To <b>create an account</b> click <a href="{{path_for('app.register')}}">here</a>. If you <b>forgot your password</b> and need a new one click <a href="{{path_for('password.getrecover')}}">here</a>.</small>
+
+</div>
+{% endblock %}

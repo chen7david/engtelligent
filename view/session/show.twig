@@ -1,0 +1,196 @@
+{% extends 'app/includes/template.twig' %}
+{% block title %}View Session{% endblock %}
+
+{% block scripts_ht %}
+	<script src="{{base_url()}}/includes/scripts/jquery-3.2.1.slim.min.js"></script>
+{% endblock %}
+
+{% block body %}
+
+
+	
+<div class="col-lg-9 jumbotron bg-light mx-auto">
+	{% if session.lessons.count > 0 %}
+		<h1>
+		{% for lesson in session.lessons %}
+			<h5>
+		    <img class="" src="{{base_url('/') ~ lesson.path}}" alt="Profile Picture" style="width: 80px; height: 80px; border-radius: 50%; border:4px solid #8bb2ed;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+			{{ lesson.name}}
+		</h5>
+		    
+		    {% if session.lessons.count - loop.index != 0 %}
+		    	&
+		    {% endif %}
+		{% endfor %}
+		</h1>	
+	{% else %}
+	    <h3>{{session.created}}</h3>
+	{% endif %}	
+					
+<small class="muted"><i class="fab fa-superpowers"></i> Updated: {{session.updated}}</small class="mt-0">
+
+<form id="store_points" action="{{path_for('point.deposit',{session_id: session.id})}}" method="post">
+
+<ul class="nav p-2">
+ <li class="nav-item">
+	<a class="btn btn-dark btn-circle" href="{{path_for('group.show',{group_id: group.id})}}">
+		<i class="fas fa-chevron-left"></i>
+	</a>
+  </li>
+  <li>&nbsp</li>
+  <li class="nav-item">  
+    <a class="btn btn-dark btn-circle" href="{{path_for('group.index')}}">
+    	<i class="far fa-circle"></i>
+    </a>
+  </li>
+  <li>&nbsp</li>
+  <li class="nav-item">  
+    <a class="btn btn-dark btn-circle" href="{{path_for('session.edit',{session_id : session.id})}}">
+    	<i class="fas fa-pen"></i>
+    </a>
+  </li>
+  <li>&nbsp</li>
+  <li class="nav-item">  
+    <a class="btn btn-dark btn-circle" href="">
+    	<i class="fas fa-comment"></i>
+    </a>
+  </li>
+  <li>&nbsp</li>
+  <li class="nav-item">  
+    <button class="btn btn-dark btn-circle" type="submit" value="Create">
+		<i class="fas fa-check"></i>
+	</button>
+  </li>
+   <li>&nbsp</li>
+  <li class="nav-item">
+    <a class="btn btn-dark btn-circle" href="#" data-toggle="modal" data-target="#myModal">
+    	<i class="fas fa-times"></i>
+    </a>
+  </li>
+</ul>
+
+<hr class="mt-0">
+
+<div class="row">
+{% for user in group.users %}
+<div class="card col-5 col-sm-6 col-md-3 col-lg-3 col-xl-3 p-1 m-1">
+<div class="card-body">
+
+	<p>
+		
+	</p>
+	<p class="text-center">
+		<img class="mx-auto" src="{{base_url('/') ~ user.avatar}}" alt="Profile Picture" style="width: 80px; height: 80px; border-radius: 50%; border:3px solid #f2f7ff;" data-toggle="collapse" data-target="#avatar{{user.id}}">
+	</p>
+	<p class="text-center">
+		{{user.name}}
+	</p>
+	<p>
+		<div class="collapse text-center" id="avatar{{user.id}}" >
+			<span class="badge btn-light badge-pill">
+				<i class="fas fa-strikethrough"></i> {{user.points}}
+			</span>
+
+			
+				<p class="p-0 m-0"><i class="fas fa-mobile-alt"></i> <small>{{user.phone_number}}</small></p>
+				<p class="p-0 m-0"><i class="fas fa-birthday-cake"></i> <small>{{user.date_of_birth}}</small></p>
+				<p class="p-0 m-0"><i class="fas fa-sun"></i> <small>{{user.age}}</small></p>
+				
+		</div>
+	</p>
+
+	<p>
+		<input name="points[{{user.id}}][amount]" type="text" class="form-control input{{user.id}} text-center bg-light  border-0 font-weight-bold" value="0" style="font-size:30px;">
+		<input name="points[{{user.id}}][user_id]" type="hidden" value="{{user.id}}">
+		<input name="points[{{user.id}}][creator_id]" type="hidden" value="{{auth.user().id}}">
+	</p>
+	
+	<p>
+		<ul class="nav justify-content-center">
+			<li class="nav-item">
+				<a class="btn btn-dark btn-circle" href="#" id="add{{user.id}}">
+			    	<i class="fas fa-plus"></i>
+			    </a>
+			</li>
+
+			<li>&nbsp</li>
+			<li>&nbsp</li>
+			<li>&nbsp</li>
+			<li>&nbsp</li>
+
+		    <li class="nav-item">
+		    	<a  class="btn btn-dark btn-circle" href="#" id="subtract{{user.id}}">
+			    	<i class="fas fa-minus"></i>
+			    </a>
+		    </li>
+		</ul>	
+	</p>
+
+</div>
+</div>
+{% endfor %}
+</div>
+<input type="hidden" name="session_id" value="{{session.id}}">
+</form>	
+
+				
+</div>
+
+	</div>
+
+</div>
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Confirmation</h5>
+        
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        You will not be able to recover this item if you choose to delete it. 
+        
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+      	<a class="btn btn-danger btn-sm" href="{{path_for('session.delete',{session_id : session.id})}}">Delete</a>
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts_ft %}
+
+
+
+
+<script type="text/javascript">
+{% for user in group.users %}
+
+		$('#add{{user.id}}').click(function(){
+			points = $('.input{{ user.id }}').val();
+			points++;
+			$('.input{{ user.id }}').val(points);
+		});
+
+		$('#subtract{{ user.id }}').click(function(){
+			points = $('.input{{ user.id }}').val();
+			points--;
+			$('.input{{ user.id }}').val(points);
+		});
+
+{% endfor %}
+</script>
+
+
+
+{% endblock %}
